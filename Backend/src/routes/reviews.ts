@@ -8,9 +8,12 @@ const router = Router();
 // Get product reviews
 router.get('/product/:productId', async (req: AuthRequest, res: Response) => {
   try {
-    const reviews = await Review.find({ productId: req.params.productId }).sort({
+    const reviews = await Review.find({
+      productId: (req as any).params.productId,
+    }).sort({
       createdAt: -1,
     });
+
     res.json({ success: true, data: reviews });
   } catch (error) {
     res.status(500).json({
@@ -26,7 +29,6 @@ router.post('/', verifyToken, async (req: AuthRequest, res: Response) => {
   try {
     const { productId, rating, title, comment } = req.body;
 
-    // Check if user already reviewed
     const existingReview = await Review.findOne({
       productId,
       userId: req.user?.id,
@@ -48,17 +50,22 @@ router.post('/', verifyToken, async (req: AuthRequest, res: Response) => {
       title,
       comment,
     });
+
     await review.save();
 
-    // Update product rating
     const reviews = await Review.find({ productId });
-    const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+    const avgRating =
+      reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
     await Product.findByIdAndUpdate(productId, {
       rating: avgRating,
       reviewCount: reviews.length,
     });
 
-    res.status(201).json({ success: true, data: review });
+    res.status(201).json({
+      success: true,
+      data: review,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
@@ -71,7 +78,7 @@ router.post('/', verifyToken, async (req: AuthRequest, res: Response) => {
 // Update review
 router.put('/:id', verifyToken, async (req: AuthRequest, res: Response) => {
   try {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.findById((req as any).params.id);
 
     if (!review) {
       return res.status(404).json({
@@ -89,11 +96,18 @@ router.put('/:id', verifyToken, async (req: AuthRequest, res: Response) => {
       });
     }
 
-    const updated = await Review.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updated = await Review.findByIdAndUpdate(
+      (req as any).params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
 
-    res.json({ success: true, data: updated });
+    res.json({
+      success: true,
+      data: updated,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
@@ -106,7 +120,7 @@ router.put('/:id', verifyToken, async (req: AuthRequest, res: Response) => {
 // Delete review
 router.delete('/:id', verifyToken, async (req: AuthRequest, res: Response) => {
   try {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.findById((req as any).params.id);
 
     if (!review) {
       return res.status(404).json({
@@ -124,9 +138,12 @@ router.delete('/:id', verifyToken, async (req: AuthRequest, res: Response) => {
       });
     }
 
-    await Review.findByIdAndDelete(req.params.id);
+    await Review.findByIdAndDelete((req as any).params.id);
 
-    res.json({ success: true, message: 'Review deleted' });
+    res.json({
+      success: true,
+      message: 'Review deleted',
+    });
   } catch (error) {
     res.status(500).json({
       success: false,

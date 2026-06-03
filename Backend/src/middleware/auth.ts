@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/env.js';
 
-export interface AuthRequest extends Request<any, any, any, any> {
+export interface AuthRequest extends Request {
   user?: {
     id: string;
     email: string;
@@ -10,10 +10,15 @@ export interface AuthRequest extends Request<any, any, any, any> {
   };
 }
 
-export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction): void => {
+export const verifyToken = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): void => {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader?.startsWith('Bearer ')) {
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       res.status(401).json({
         success: false,
         error: 'No authorization token provided',
@@ -22,8 +27,14 @@ export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction)
       return;
     }
 
-    const token = authHeader.substring(7);
-    const decoded = jwt.verify(token, config.jwtSecret) as any;
+    const token = authHeader.split(' ')[1];
+
+    const decoded = jwt.verify(token, config.jwtSecret) as {
+      id: string;
+      email: string;
+      role: 'user' | 'admin';
+    };
+
     req.user = decoded;
     next();
   } catch (error) {
@@ -35,7 +46,11 @@ export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction)
   }
 };
 
-export const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction): void => {
+export const requireAdmin = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): void => {
   if (req.user?.role !== 'admin') {
     res.status(403).json({
       success: false,
@@ -44,5 +59,6 @@ export const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction
     });
     return;
   }
+
   next();
 };
