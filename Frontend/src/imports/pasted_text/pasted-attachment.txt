@@ -1,0 +1,137 @@
+Build a complete, production-grade e-commerce website called PlantSteller — "Community Powered Plant Shopping". The aesthetic should feel like a premium Indian plant brand: lush, botanical, minimal-luxe, warm and trustworthy. Use Cormorant Garamond for display headings and DM Sans for body text. Primary color: deep forest green (#1A4731), accent: warm gold (#C9952A), background light mode: cream white (#FAF8F3), dark mode: near-black (#0D1F14).
+
+🏠 1. HERO SECTION
+
+No stats bar (remove Happy Plant Parents, Plant Varieties, Satisfaction Rate, Average Rating)
+No "AI-Powered Plant Shopping" badge
+The hero should feel like a premium brand entry point — full-screen rotating background that cycles through 6–8 beautiful plant photography images (use Unsplash plant URLs) — a new random image loads every time the user visits or refreshes
+Over the background, show a random botanical quote from a curated list of 15+ quotes (new one each visit). Style it elegantly — italic serif, soft white text with subtle text-shadow, positioned bottom-left or center
+Example quotes pool: "In every walk with nature, one receives far more than he seeks." — John Muir, "A garden is a friend you can visit any time.", "Plants give us oxygen for the lungs and for the soul.", "To plant a garden is to believe in tomorrow." — Audrey Hepburn, "The love of gardening is a seed once sown that never dies.", etc.
+Hero headline should rotate between 3 brand slogans on a timer (fade transition), like an e-commerce brand launch:
+
+"Your Perfect Plant is One Click Away"
+"Grow Something Beautiful Today"
+"India's Most Loved Plant Community"
+
+
+Two CTA buttons: Shop Plants → (gold filled) + Join Community (outlined)
+Sticky navbar: Logo left, nav links center (Shop, Community, Corporate Gifting, Support), icons right (search, wishlist heart, cart badge, theme toggle 🌙/☀️, Login button)
+
+
+🛍️ 2. SHOP / BROWSE PLANTS
+
+Display plants in a natural, airy grid layout — not sterile product cards. Each card has a lush plant photo, soft rounded corners, plant name, a short one-line care tip, and price in Indian Rupees (₹)
+Price range: ₹199 – ₹2,499
+Section divisions by season displayed as horizontal scrollable pill tabs:
+
+🌞 Summer Picks | 🌧️ Monsoon Picks | ❄️ Winter Picks | 🌸 All Season
+
+
+Each season section shows 6–8 relevant plants with a short seasonal care note (e.g. "Thrives in humidity — perfect for July–September")
+Filter bar: Sort by Price: Low to High / High to Low | Category: Indoor / Outdoor / Succulents / Tropicals / Air Purifiers
+Each card: Add to Cart button + ♡ Wishlist icon (top-right of card)
+Hover effect: card lifts gently with a soft shadow bloom
+
+
+🌱 3. PRODUCT DETAIL PAGE
+
+Large plant image left, details right
+Plant name, botanical name (italic), price in ₹, short description
+Care info pills: 💧 Water, ☀️ Light, 🌡️ Temperature, 🪴 Pot Size
+Quantity selector + Add to Cart (gold) + Add to Wishlist (outlined)
+AI Recommendation badge: "Our AI suggests this for [season/location]"
+Related plants section below
+
+
+🛒 4. CART & CHECKOUT
+
+Slide-in cart drawer from right
+Shows plant thumbnail, name, quantity +/−, price in ₹, subtotal
+Apply coupon field, total in ₹, Proceed to Checkout button
+Checkout: shipping address form (Indian cities autosuggest), payment method (UPI / Card / COD)
+
+
+❤️ 5. WISHLIST PAGE
+
+Clean grid of saved plants
+Each item: photo, name, ₹ price, Move to Cart + Remove buttons
+
+
+🔐 6. LOGIN / SIGN UP
+
+Clean centered auth card on a blurred plant background
+Sign Up: Name, Email, Password, City (for AI plant suggestions), Create PlantSteller ID
+Login: Email + Password + Forgot Password
+Google Sign-In button
+After login, user gets a personal dashboard with order history, wishlist, community posts
+
+
+🌿 7. COMMUNITY SECTION (Instagram-style, but purposeful)
+
+Remove all fake/placeholder reviews entirely
+At the top of the Community page, show a warm, honest value proposition section explaining WHY sharing helps:
+
+"Your review helps thousands of plant lovers across India find their perfect plant"
+"Share your growth journey — your experience becomes someone else's guide"
+"Earn PlantSteller Community badges for every review you post"
+"Help us understand what thrives in your city's climate"
+
+
+Show an empty-state illustration (SVG of a plant with speech bubble) with CTA: "Be the first to share your plant story →"
+Post creation: upload photo, write caption, tag plant name, add location/city, star rating
+Feed layout: masonry grid (Pinterest-style), like ❤️ + comment 💬 buttons
+Community badges: 🌱 Seedling (1 post) → 🌿 Grower (5 posts) → 🌳 Garden Master (20 posts)
+
+
+🏢 8. CORPORATE GIFTING PAGE
+
+Hero: "Gift Green. Gift Life." — elegant, B2B tone
+Package tiers in ₹: Starter (₹2,999 for 5 plants), Growth (₹7,499 for 15 plants), Enterprise (custom)
+Features: Custom branding, branded pots, handwritten cards, bulk delivery across India
+Inquiry form: Company Name, Contact Person, Email, Phone, No. of Plants, Occasion, Message
+Trust signals: "Trusted by 50+ companies for gifting"
+
+
+🤖 9. AI PLANT CHATBOT (Floating Widget)
+
+Floating leaf icon button, bottom-right corner
+Opens a beautiful chat panel with PlantSteller branding
+Bot intro: "Hi! I'm Leaf 🌿, your personal plant advisor. Tell me about your space and I'll find your perfect plant!"
+Asks: City/location → Current season → Space type (bedroom / balcony / office / garden) → Sunlight availability → Care experience level
+Uses Anthropic API (claude-sonnet-4-20250514) with system prompt: "You are Leaf, a friendly Indian plant expert. Recommend plants suitable for the user's Indian city, season, and living space. Always give prices in ₹. Be warm, concise, and enthusiastic about plants."
+Recommended plants show with a mini Add to Cart button inside chat
+
+
+❓ 10. HELP & SUPPORT PAGE
+
+FAQ accordion (shipping, returns, plant care, payment)
+Contact form
+Team cards:
+
+👤 Pranav Ayush | 📱 6392826369 | ✉️ pranavayush8@gmail.com
+👤 Vinayak Raj | 📱 9354447494 | ✉️ vinayakraj201@gmail.com
+
+
+WhatsApp support button (opens wa.me/916392826369)
+
+
+🦶 11. FOOTER
+
+Logo + tagline: "Community Powered Plant Shopping"
+Links: Shop, Community, Corporate Gifting, Support, Privacy Policy
+Social: 📸 Instagram @plantsteller | 💬 WhatsApp Channel
+Contact: Both team members with phone + email
+© 2025 PlantSteller. All rights reserved. Made with 🌿 in India
+
+
+🎨 12. DESIGN SYSTEM
+
+Dark / Light mode toggle — smooth CSS variable transition, default light
+All prices in Indian Rupees ₹
+Fonts: Cormorant Garamond (headings) + DM Sans (body) via Google Fonts
+Green: #1A4731 | Gold: #C9952A | Cream: #FAF8F3 | Dark BG: #0D1F14
+Rounded corners (16–24px), soft drop shadows, generous whitespace
+Page load: staggered fade-in animations
+Mobile-first responsive design
+Smooth scroll, active nav highlighting
+Toast notifications for cart/wishlist actions
