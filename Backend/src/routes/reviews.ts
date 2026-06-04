@@ -14,7 +14,10 @@ router.get('/product/:productId', async (req: AuthRequest, res: Response) => {
       createdAt: -1,
     });
 
-    res.json({ success: true, data: reviews });
+    res.json({
+      success: true,
+      data: reviews,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,7 +30,7 @@ router.get('/product/:productId', async (req: AuthRequest, res: Response) => {
 // Create review
 router.post('/', verifyToken, async (req: AuthRequest, res: Response) => {
   try {
-    const { productId, rating, title, comment } = req.body;
+    const { productId, rating, title, comment } = (req as any).body;
 
     const existingReview = await Review.findOne({
       productId,
@@ -45,7 +48,7 @@ router.post('/', verifyToken, async (req: AuthRequest, res: Response) => {
     const review = new Review({
       productId,
       userId: req.user?.id,
-      userName: req.body.userName,
+      userName: (req as any).body.userName,
       rating,
       title,
       comment,
@@ -54,8 +57,12 @@ router.post('/', verifyToken, async (req: AuthRequest, res: Response) => {
     await review.save();
 
     const reviews = await Review.find({ productId });
+
     const avgRating =
-      reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+      reviews.reduce(
+        (sum: number, r: any) => sum + r.rating,
+        0
+      ) / reviews.length;
 
     await Product.findByIdAndUpdate(productId, {
       rating: avgRating,
@@ -98,10 +105,8 @@ router.put('/:id', verifyToken, async (req: AuthRequest, res: Response) => {
 
     const updated = await Review.findByIdAndUpdate(
       (req as any).params.id,
-      req.body,
-      {
-        new: true,
-      }
+      (req as any).body,
+      { new: true }
     );
 
     res.json({
